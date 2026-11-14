@@ -1077,7 +1077,7 @@ OWNED_AUCTION_BIDDER_INFO_RECEIVED(auctionID: number, bidderName: cstring) [Sync
 OWNED_AUCTIONS_UPDATED() [SynchronousEvent] @AuctionHouse
 PARTY_ELIGIBILITY_FOR_DELVE_TIERS_CHANGED(playerName: string, maxEligibleLevel: number) [SynchronousEvent] -- Signaled when responses come in from RequestPartyEligibilityForDelveTiers. @DelvesUI
 PARTY_INVITE_CANCEL() [SynchronousEvent] @PartyInfo
-PARTY_INVITE_REQUEST(name: cstring, isTank: bool, isHealer: bool, isDamage: bool, isNativeRealm: bool, allowMultipleRoles: bool, inviterGUID: WOWGUID, questSessionActive: bool) [SynchronousEvent] @PartyInfo
+PARTY_INVITE_REQUEST(name: cstring, isTank: bool, isHealer: bool, isDamage: bool, isNativeRealm: bool, isCrossShard: bool, allowMultipleRoles: bool, inviterGUID: WOWGUID, questSessionActive: bool) [SynchronousEvent] @PartyInfo
 PARTY_KILL(attackerGUID: WOWGUID, targetGUID: WOWGUID) [SecretWhenUnitIdentityRestricted, SynchronousEvent] @Unit
 PARTY_LEADER_CHANGED() [UniqueEvent] @PartyInfo
 PARTY_LFG_RESTRICTED() [SynchronousEvent] @PartyInfo
@@ -1605,7 +1605,7 @@ UNIT_AURA_BLOCK_LIST_CLEARED(unitTarget: UnitTokenVariant) [SynchronousEvent] @U
 UNIT_AURA_BLOCKED(unitTarget: UnitTokenVariant, auraInstanceID: number {SecretValue}) [SynchronousEvent] @UnitAura
 UNIT_CHEAT_TOGGLE_EVENT() [SynchronousEvent] @Unit
 UNIT_CLASSIFICATION_CHANGED(unitTarget: UnitTokenVariant) [SynchronousEvent] @Unit
-UNIT_COMBAT(unitTarget: UnitTokenVariant, event: cstring, flagText: cstring, amount: number, schoolMask: number) [SynchronousEvent] @Unit
+UNIT_COMBAT(unitTarget: UnitTokenVariant, event: cstring, flagText: cstring, amount: number {SecretValue}, schoolMask: number) [SynchronousEvent] @Unit
 UNIT_CONNECTION(unitTarget: UnitTokenVariant, isConnected: bool) [SynchronousEvent] @Unit
 UNIT_CTR_OPTIONS(unitTarget: UnitTokenVariant) [SynchronousEvent] @Unit
 UNIT_DAMAGE(unitTarget: UnitTokenVariant) [SynchronousEvent] @Unit

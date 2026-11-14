@@ -241,6 +241,9 @@ function TargetFrameMixin:OnEvent(event, ...)
 				self.totFrame:Update();
 			end
 			self:CheckFaction();
+			if (self.showLeader) then
+				self:CheckPartyLeader();
+			end
 		end
 	elseif (event == "RAID_TARGET_UPDATE") then
 		self:UpdateRaidTargetIcon(self);
@@ -370,15 +373,9 @@ end
 
 function TargetFrameMixin:CheckBattlePet()
 	if (UnitIsWildBattlePet(self.unit) or UnitIsBattlePetCompanion(self.unit)) then
-		if (ShouldShowBattlePetIcon()) then
-			local petType = UnitBattlePetType(self.unit);
-			self.TargetFrameContent.TargetFrameContentContextual.PetBattleIcon:SetTexture("Interface\\TargetingFrame\\PetBadge-"..PET_TYPE_SUFFIX[petType]);
-			self.TargetFrameContent.TargetFrameContentContextual.PetBattleIcon:Show();
-		else
-			self.TargetFrameContent.TargetFrameContentMain.LevelBackgroundCircle:Hide();
-			self.TargetFrameContent.TargetFrameContentMain.LevelText:Hide();
-			self.TargetFrameContent.TargetFrameContentContextual.PetBattleIcon:Hide();
-		end
+		local petType = UnitBattlePetType(self.unit);
+		self.TargetFrameContent.TargetFrameContentContextual.PetBattleIcon:SetTexture("Interface\\TargetingFrame\\PetBadge-"..PET_TYPE_SUFFIX[petType]);
+		self.TargetFrameContent.TargetFrameContentContextual.PetBattleIcon:Show();
 	end
 end
 

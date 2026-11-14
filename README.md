@@ -9,7 +9,7 @@ Agent guidance is in [AGENT.md](AGENT.md) (and [CLAUDE.md](CLAUDE.md), which poi
 | Flavour | Client product | Game version (build) | Folder | Last updated |
 | --- | --- | --- | --- | --- |
 | Retail | `wow` | 12.1.5.70575 | [`Retail/`](Retail/BlizzardInterfaceCode/Interface/AddOns) | 2026-10-28 |
-| Forever | `wowf` | 1.60.1.70658 | [`Forever/`](Forever/BlizzardInterfaceCode/Interface/AddOns) | 2026-10-28 |
+| Forever | `wowf` | 1.60.1.70938 | [`Forever/`](Forever/BlizzardInterfaceCode/Interface/AddOns) | 2026-11-14 |
 
 Versions are read from the `Version` column of the client's `.build.info` file. The exported code does not contain a build number.
 
@@ -42,6 +42,7 @@ Newest first. Every refresh adds an entry here.
 
 | Date | Flavour | Game version (build) | Notes |
 | --- | --- | --- | --- |
+| 2026-11-14 | Forever | 1.60.1.70938 | Re-export of Forever tree; compact index rebuilt (`index/`). Retail was not re-exported: the client now reports Retail build 12.1.5.70783, but the Retail tree in this repository is still build 12.1.5.70575 |
 | 2026-10-28 | Retail and Forever | 12.1.5.70575 / 1.60.1.70658 | Added compact API index (`index/`) and builder script (`tools/build_index.py`); game data unchanged |
 | 2026-10-28 | Retail | 12.1.5.70575 | Initial export |
 | 2026-10-28 | Forever | 1.60.1.70658 | Initial export |

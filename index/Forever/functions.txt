@@ -116,6 +116,7 @@ C_ActionBar.IsEquippedAction(actionID: luaIndex) -> isEquippedAction: bool [Requ
 C_ActionBar.IsEquippedGearOutfitAction(slotID: luaIndex) -> isEquippedGearOutfitAction: bool [SecretArguments=AllowedWhenUntainted] @ActionBarFrame
 C_ActionBar.IsHarmfulAction(actionID: luaIndex, useNeutral: bool) -> isHarmful: bool [SecretArguments=AllowedWhenUntainted] @ActionBarFrame
 C_ActionBar.IsHelpfulAction(actionID: luaIndex, useNeutral: bool) -> isHelpful: bool [SecretArguments=AllowedWhenUntainted] @ActionBarFrame
+C_ActionBar.IsHighestSpellRank(spellID: SpellIdentifier) -> isHighestRank: bool [SecretArguments=AllowedWhenUntainted] @ActionBarFrame
 C_ActionBar.IsInterruptAction(slotID: luaIndex) -> isInterruptAction: bool [SecretArguments=AllowedWhenUntainted] -- Returns whether the given action button contains a spell that can interrupt spellcasting. @ActionBarFrame
 C_ActionBar.IsItemAction(actionID: luaIndex) -> isItemAction: bool [RequiresValidActionSlot, SecretArguments=AllowedWhenUntainted] @ActionBarFrame
 C_ActionBar.IsMacroActionWithShowTooltip(actionID: luaIndex) -> isMacroActionWithShowTooltip: bool [RequiresValidActionSlot, SecretArguments=AllowedWhenUntainted] -- Returns whether the given action button contains a macro with an explicit #showtooltip directive. @ActionBarFrame
@@ -478,6 +479,7 @@ C_BattleNet.CanToggleHighResTexturesWithoutClientReload() -> canToggle: bool @Ba
 C_BattleNet.GetAccountInfoByGUID(guid: WOWGUID) -> accountInfo?: BNetAccountInfo [SecretArguments=AllowedWhenUntainted] @BattleNet
 C_BattleNet.GetAccountInfoByID(id: number, wowAccountGUID?: WOWGUID) -> accountInfo?: BNetAccountInfo [SecretArguments=AllowedWhenUntainted] @BattleNet
 C_BattleNet.GetCustomTitleFriendName(id: number) -> customName: string [MayReturnNothing, SecretArguments=AllowedWhenUntainted] @BattleNet
+C_BattleNet.GetDefaultTitleWhisperTarget(id: number) -> whisperTarget: string [MayReturnNothing, SecretArguments=AllowedWhenUntainted] @BattleNet
 C_BattleNet.GetFriendAccountInfo(friendIndex: luaIndex, wowAccountGUID?: WOWGUID) -> accountInfo?: BNetAccountInfo [SecretArguments=AllowedWhenUntainted] @BattleNet
 C_BattleNet.GetFriendGameAccountInfo(friendIndex: luaIndex, accountIndex: luaIndex) -> gameAccountInfo?: BNetGameAccountInfo [SecretArguments=AllowedWhenUntainted] @BattleNet
 C_BattleNet.GetFriendInviteInfo(inviteIndex: luaIndex) -> inviteInfo?: BNetFriendInviteInfo [SecretArguments=AllowedWhenUntainted] @BattleNet
@@ -2468,8 +2470,8 @@ C_LootHistory.GetSortedInfoForDrop(encounterID: number, lootListKey: number) -> 
 C_LootJournal.GetItemSetItems(setID: number) -> items: table<LootJournalItemInfo> [MayReturnNothing, SecretArguments=AllowedWhenUntainted] @LootJournal
 C_LootJournal.GetItemSets(classID?: number, specID?: number) -> itemSets: table<LootJournalItemSetInfo> [MayReturnNothing, SecretArguments=AllowedWhenUntainted] @LootJournal
 C_LoreText.RequestLoreTextForCampaignID(campaignID: number) [SecretArguments=AllowedWhenUntainted] @LoreText
-C_LossOfControl.GetActiveLossOfControlData(index: luaIndex) -> event?: LossOfControlData [SecretArguments=AllowedWhenUntainted] @LossOfControl
-C_LossOfControl.GetActiveLossOfControlDataByUnit(unitToken: UnitToken, index: luaIndex) -> event?: LossOfControlData [SecretWhenLossOfControlInfoRestricted, SecretArguments=AllowedWhenUntainted] @LossOfControl
+C_LossOfControl.GetActiveLossOfControlData(index: luaIndex) -> event?: LossOfControlData [SecretWhenLossOfControlRestricted, SecretArguments=AllowedWhenUntainted] @LossOfControl
+C_LossOfControl.GetActiveLossOfControlDataByUnit(unitToken: UnitToken, index: luaIndex) -> event?: LossOfControlData [SecretWhenLossOfControlRestricted, SecretArguments=AllowedWhenUntainted] @LossOfControl
 C_LossOfControl.GetActiveLossOfControlDataCount() -> count: number @LossOfControl
 C_LossOfControl.GetActiveLossOfControlDataCountByUnit(unitToken: UnitToken) -> count: number [SecretArguments=AllowedWhenUntainted] @LossOfControl
 C_LossOfControl.GetActiveLossOfControlDuration(unitToken: UnitToken, index: luaIndex) -> duration?: LuaDurationObject [SecretArguments=AllowedWhenUntainted] @LossOfControl
@@ -2699,7 +2701,7 @@ C_NewItems.IsNewItem(containerIndex: BagIndex, slotIndex: luaIndex) -> isNew: bo
 C_NewItems.RemoveNewItem(containerIndex: BagIndex, slotIndex: luaIndex) [SecretArguments=AllowedWhenUntainted] @NewItems
 C_PaperDollInfo.AmmoNeeded() -> ammoNeeded: bool @PaperDollInfo
 C_PaperDollInfo.CanAutoEquipCursorItem() -> canAutoEquip: bool @PaperDollInfo
-C_PaperDollInfo.CancelTemporaryEnchantment(slot: LuaInventorySlot) [HasRestrictions, SecretArguments=AllowedWhenUntainted] -- Cancels active temporary enchantments on inventory slot items. @PaperDollInfo
+C_PaperDollInfo.CancelTemporaryEnchantment(slot: LuaInventorySlot) [HasRestrictions, SecretArguments=AllowedWhenUntainted] -- Cancels active temporary enchantments on inventory slot items. Imbue enchants take priority over temporary enchants. @PaperDollInfo
 C_PaperDollInfo.CursorCanGoInSlot(slotIndex: luaIndex) -> canOccupySlot: bool [SecretArguments=AllowedWhenUntainted] @PaperDollInfo
 C_PaperDollInfo.GetArmorEffectiveness(armor: number, attackerLevel: number) -> effectiveness: number [SecretArguments=AllowedWhenUntainted] @PaperDollInfo
 C_PaperDollInfo.GetArmorEffectivenessAgainstTarget(armor: number) -> effectiveness?: number [SecretArguments=AllowedWhenUntainted] @PaperDollInfo
@@ -2713,7 +2715,7 @@ C_PaperDollInfo.GetInventorySlotInfo(slotName: cstring) -> invSlot: number, slot
 C_PaperDollInfo.GetInventorySlotInfoForInvSlot(invSlotValue: number {doc="This is the Lua version of the INVSLOT enum, not a luaIndex"}) -> invSlot: number, slotTexture: fileID, checkRelic: bool, slotName: cstring [MayReturnNothing, SecretArguments=AllowedWhenUntainted] @PaperDollInfo
 C_PaperDollInfo.GetMinItemLevel() -> minItemLevel?: number @PaperDollInfo
 C_PaperDollInfo.GetStaggerPercentage(unit: UnitToken) -> stagger: number, staggerAgainstTarget?: number [SecretArguments=AllowedWhenUntainted] @PaperDollInfo
-C_PaperDollInfo.GetTemporaryEnchantmentInfo(slot: LuaInventorySlot {doc="An appropriate INVSLOT_ constant."}) -> enchantInfo: TemporaryItemEnchantInfo {doc="Returns nothing if no temporary enchantment is active for this slot."} [MayReturnNothing, SecretArguments=AllowedWhenUntainted] -- Queries information about active temporary enchants on inventory slot items. @PaperDollInfo
+C_PaperDollInfo.GetTemporaryEnchantmentInfo(slot: LuaInventorySlot {doc="An appropriate INVSLOT_ constant."}) -> enchantInfo: TemporaryItemEnchantInfo {doc="Returns nothing if no temporary enchantment is active for this slot."} [MayReturnNothing, SecretArguments=AllowedWhenUntainted] -- Queries information about active temporary enchants on inventory slot items. Imbue enchants take priority over temporary enchants. @PaperDollInfo
 C_PaperDollInfo.IsInventorySlotEnabled(slotName: stringView) -> isEnabled: bool [SecretArguments=AllowedWhenUntainted] @PaperDollInfo
 C_PaperDollInfo.IsRangedSlotShown() -> isShown: bool @PaperDollInfo
 C_PaperDollInfo.OffhandHasShield() -> offhandHasShield: bool @PaperDollInfo
@@ -3309,7 +3311,7 @@ C_RestrictedActions.CheckAllowProtectedFunctions(object: FrameScriptObject, sile
 C_RestrictedActions.GetAddOnRestrictionState(type: AddOnRestrictionType) -> state: AddOnRestrictionState [SecretArguments=AllowedWhenUntainted] -- Returns the current state of an addon restriction type. @RestrictedActions
 C_RestrictedActions.InCombatLockdown() -> inCombatLockdown: bool @RestrictedActions
 C_RestrictedActions.IsAddOnRestrictionActive(type: AddOnRestrictionType) -> active: bool [SecretArguments=AllowedWhenUntainted] -- Returns true if an addon restriction type is in an active state. Will always return false during dispatch of ADDON_RESTRICTION_STATE_CHANGED. @RestrictedActions
-C_Roleset.ApplyRolesetFilters(blockedRolesets: table<string>, allowedRolesets: table<string>) [SecretArguments=AllowedWhenUntainted] -- Sets or clears both blocklist and allowlist filters atomically with a single visibility reevaluation. Pass an empty table to clear the corresponding filter. @RolesetSystem
+C_Roleset.ApplyRolesetFilters(blockedRolesets: table<string>, allowedRolesets: table<string>) [HasRestrictions, SecretArguments=AllowedWhenUntainted] -- Sets or clears both blocklist and allowlist filters atomically with a single visibility reevaluation. Pass an empty table to clear the corresponding filter. Blocked for tainted callers while in combat lockdown. @RolesetSystem
 C_Roleset.GetActiveAllowedRolesets() -> allowedRolesets: table<string> -- Returns the rolesets in the currently active allowlist. @RolesetSystem
 C_Roleset.GetActiveBlockedRolesets() -> blockedRolesets: table<string> -- Returns the rolesets in the currently active blocklist. @RolesetSystem
 C_ScenarioInfo.GetCriteriaInfo(criteriaIndex: number) -> scenarioCriteriaInfo: ScenarioCriteriaInfo [MayReturnNothing, SecretArguments=AllowedWhenUntainted] @ScenarioInfo
@@ -3539,7 +3541,7 @@ C_Spell.IsPriorityAura(spellID: number) -> isHighPriority: bool [SecretArguments
 C_Spell.IsPvPTalentSpell(spellIdentifier: SpellIdentifier) -> isAutoRepeat: bool [SecretArguments=AllowedWhenTainted] -- Returns true if the spell comes from a PvP Talent @Spell
 C_Spell.IsRangedAutoAttackSpell(spellIdentifier: SpellIdentifier) -> isRangedAutoAttack: bool [SecretArguments=AllowedWhenTainted] -- Returns true if the spell is the player's ranged Auto Attack spell (ex: Shoot, Auto Shot, etc) @Spell
 C_Spell.IsSelfBuff(spellID: number) -> hasSelfEffectsOnly: bool [SecretArguments=AllowedWhenUntainted] -- Returns true if an aura only applies effects to the player, and no other units. @Spell
-C_Spell.IsSpellCrowdControl(spellIdentifier: SpellIdentifier) -> isCrowdControl: bool [SecretArguments=AllowedWhenTainted] -- Returns true if the spell causes a crowd control effect when cast on a valid target. @Spell
+C_Spell.IsSpellCrowdControl(spellIdentifier: SpellIdentifier) -> isCrowdControl: bool [SecretArguments=AllowedWhenUntainted] -- Returns true if the spell causes a crowd control effect when cast on a valid target. @Spell
 C_Spell.IsSpellDataCached(spellIdentifier: SpellIdentifier) -> isCached: bool [SecretArguments=AllowedWhenUntainted] -- Returns true if data for the spell has already been loaded and cached this session @Spell
 C_Spell.IsSpellDisabled(spellIdentifier: SpellIdentifier) -> disabled: bool [SecretArguments=AllowedWhenTainted] @Spell
 C_Spell.IsSpellHarmful(spellIdentifier: SpellIdentifier) -> isHarmful: bool [SecretArguments=AllowedWhenTainted] -- Returns true if the spell can be cast on hostile targets @Spell
@@ -3706,9 +3708,9 @@ C_Texture.GetAtlasExists(atlas: textureAtlas) -> atlasExists: bool [SecretArgume
 C_Texture.GetAtlasID(atlas: textureAtlas) -> atlasID: number [SecretArguments=AllowedWhenUntainted] @TextureUtils
 C_Texture.GetAtlasInfo(atlas: textureAtlas) -> info: AtlasInfo [MayReturnNothing, SecretArguments=AllowedWhenUntainted] @TextureUtils
 C_Texture.GetFilenameFromFileDataID(fileDataID: number) -> filename: string [SecretArguments=AllowedWhenUntainted] @TextureUtils
-C_Texture.GetTitleIconTexture(titleID: string, version: TitleIconVersion, callback: GetTitleIconTextureCallback) [SecretArguments=AllowedWhenUntainted] @TextureUtils
-C_Texture.IsTitleIconTextureReady(titleID: string, version: TitleIconVersion) -> ready: bool [SecretArguments=AllowedWhenUntainted] @TextureUtils
-C_Texture.SetTitleIconTexture(texture: SimpleTexture, titleID: string, version: TitleIconVersion) [SecretArguments=AllowedWhenUntainted] @TextureUtils
+C_Texture.GetTitleIconTexture(titleID: string, version: TitleIconVersion, callback: GetTitleIconTextureCallback, subIcon?: string) [SecretArguments=AllowedWhenUntainted] @TextureUtils
+C_Texture.IsTitleIconTextureReady(titleID: string, version: TitleIconVersion, subIcon?: string) -> ready: bool [SecretArguments=AllowedWhenUntainted] @TextureUtils
+C_Texture.SetTitleIconTexture(texture: SimpleTexture, titleID: string, version: TitleIconVersion, subIcon?: string) [SecretArguments=AllowedWhenUntainted] @TextureUtils
 C_Texture.SetURLTexture(texture: SimpleTexture, url: cstring) [HasRestrictions, SecretArguments=AllowedWhenUntainted] @TextureUtils
 C_Timer.After(seconds: number, callback: TimerCallback) [SecretArguments=AllowedWhenUntainted] @UITimer
 C_Timer.NewTicker(seconds: number, callback: TickerCallback, iterations?: number) -> cbObject: TickerCallback [SecretArguments=AllowedWhenUntainted] @UITimer
@@ -3875,6 +3877,7 @@ C_TradeSkillUI.GetSkillLineForGear(itemInfo: ItemInfo) -> skillLineID?: number [
 C_TradeSkillUI.GetSourceTypeFilter() -> sourceTypeFilter: number @TradeSkillUI
 C_TradeSkillUI.GetTradeSkillDisplayName(skillLineID: number) -> professionDisplayName: cstring [SecretArguments=AllowedWhenUntainted] @TradeSkillUI
 C_TradeSkillUI.HasFavoriteOrderRecipes() -> hasFavorites: bool @TradeSkillUI
+C_TradeSkillUI.HasNoReagentCost(recipeID: number) -> hasNoReagentCost: bool [SecretArguments=AllowedWhenUntainted] @TradeSkillUI
 C_TradeSkillUI.IsEnchantTargetValid(recipeID: number, itemGUID: WOWGUID, craftingReagents?: table<CraftingReagentInfo>) -> valid: bool [SecretArguments=AllowedWhenUntainted] @TradeSkillUI
 C_TradeSkillUI.IsGuildTradeSkillsEnabled() -> enabled: bool @TradeSkillUI
 C_TradeSkillUI.IsNearProfessionSpellFocus(profession: Profession) -> nearFocus: bool [SecretArguments=AllowedWhenUntainted] @TradeSkillUI
@@ -4079,7 +4082,7 @@ C_TransmogOutfitInfo.GetOutfitsInfo() -> outfitsInfo: table<TransmogOutfitEntryI
 C_TransmogOutfitInfo.GetOutfitSituation(option: TransmogSituationOption) -> value: bool [SecretArguments=AllowedWhenUntainted] @TransmogOutfitInfo
 C_TransmogOutfitInfo.GetOutfitSituationsEnabled() -> enabled: bool @TransmogOutfitInfo
 C_TransmogOutfitInfo.GetPendingTransmogCost() -> cost: BigUInteger, modifierFlags: number [MayReturnNothing] @TransmogOutfitInfo
-C_TransmogOutfitInfo.GetSecondarySlotState(slot: TransmogOutfitSlot) -> state: bool [SecretArguments=AllowedWhenUntainted] @TransmogOutfitInfo
+C_TransmogOutfitInfo.GetSecondarySlotState(slot: TransmogOutfitSlot, option: TransmogOutfitSlotOption) -> state: bool [SecretArguments=AllowedWhenUntainted] @TransmogOutfitInfo
 C_TransmogOutfitInfo.GetSetSourcesForSlot(transmogSetID: number, slot: TransmogOutfitSlot) -> sources: table<AppearanceSourceInfo> [MayReturnNothing, SecretArguments=AllowedWhenUntainted] @TransmogOutfitInfo
 C_TransmogOutfitInfo.GetSlotGroupInfo() -> slotGroups: table<TransmogOutfitSlotGroup> [MayReturnNothing] @TransmogOutfitInfo
 C_TransmogOutfitInfo.GetSourceIDsForSlot(transmogSetID: number, slot: TransmogOutfitSlot) -> sources: table<number> [MayReturnNothing, SecretArguments=AllowedWhenUntainted] @TransmogOutfitInfo
@@ -4108,7 +4111,7 @@ C_TransmogOutfitInfo.SetOutfitToOutfit(outfitID: number) [SecretArguments=Allowe
 C_TransmogOutfitInfo.SetOutfitToSet(transmogSetID: number) [SecretArguments=AllowedWhenUntainted] @TransmogOutfitInfo
 C_TransmogOutfitInfo.SetPendingTransmog(slot: TransmogOutfitSlot, type: TransmogType, option: TransmogOutfitSlotOption, transmogID: number, displayType: TransmogOutfitDisplayType) [SecretArguments=AllowedWhenUntainted] @TransmogOutfitInfo
 C_TransmogOutfitInfo.SetPendingTransmogSheatheCategory(slot: TransmogOutfitSlot, option: TransmogOutfitSlotOption, category: TransmogOutfitSlotOptionSheatheCategory) [SecretArguments=AllowedWhenUntainted] @TransmogOutfitInfo
-C_TransmogOutfitInfo.SetSecondarySlotState(slot: TransmogOutfitSlot, state: bool) [MayReturnNothing, SecretArguments=AllowedWhenUntainted] @TransmogOutfitInfo
+C_TransmogOutfitInfo.SetSecondarySlotState(slot: TransmogOutfitSlot, option: TransmogOutfitSlotOption, state: bool) [MayReturnNothing, SecretArguments=AllowedWhenUntainted] @TransmogOutfitInfo
 C_TransmogOutfitInfo.SetViewedOptionForSlot(slot: TransmogOutfitSlot, option: TransmogOutfitSlotOption) [SecretArguments=AllowedWhenUntainted] @TransmogOutfitInfo
 C_TransmogOutfitInfo.SlotHasSecondary(slot: TransmogOutfitSlot) -> hasSecondary: bool [SecretArguments=AllowedWhenUntainted] @TransmogOutfitInfo
 C_TransmogOutfitInfo.TransmogEventActive() -> transmogEventActive: bool @TransmogOutfitInfo
