@@ -15,7 +15,7 @@ import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
-FLAVOURS = ["Retail", "Forever"]
+FLAVOURS = ["Forever"]
 DOC_DIR = "BlizzardInterfaceCode/Interface/AddOns/Blizzard_APIDocumentationGenerated"
 
 TOKEN = re.compile(
