@@ -2492,6 +2492,7 @@ C_Macro.SetMacroExecuteLineCallback(cb: MacroExecuteLineCallback) [HasRestrictio
 C_Mail.CanCheckInbox() -> canCheckInbox: bool, secondsUntilAllowed: number @MailInfo
 C_Mail.GetCraftingOrderMailInfo(inboxIndex: luaIndex) -> info?: CraftingOrderMailInfo [SecretArguments=AllowedWhenUntainted] @MailInfo
 C_Mail.HasInboxMoney(inboxIndex: luaIndex) -> inboxItemHasMoneyAttached: bool [SecretArguments=AllowedWhenUntainted] @MailInfo
+C_Mail.IsCODEnabled() -> isCODEnabled: bool @MailInfo
 C_Mail.IsCommandPending() -> isCommandPending: bool @MailInfo
 C_Mail.SetOpeningAll(openingAll: bool) [SecretArguments=AllowedWhenUntainted] @MailInfo
 C_MajorFactions.GetCurrentRenownLevel(majorFactionID: number) -> level: number [SecretArguments=AllowedWhenUntainted] @MajorFactions

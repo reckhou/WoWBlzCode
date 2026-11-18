@@ -122,6 +122,7 @@ EditModeConsts.EditModeMaxLayoutsPerType: number = 5 @EditModeManagerConstants
 EditModeConsts.EditModeMinGridSpacing: number = 20 @EditModeManagerConstants
 EditModeLayoutConsts_Mainline.EditModeDefaultLayout: EditModePresetLayouts = Enum.EditModePresetLayouts.Modern @EditModeManagerConstants
 EncodingLimits.EncodingDecompressSizeLimit: size = 104857600 @EncodingUtilConstants
+EncodingLimits.EncodingDeserializeSizeLimit: size = 104857600 @EncodingUtilConstants
 EncodingLimits.EncodingStackSizeLimit: number = 100 @EncodingUtilConstants
 EncounterTimelineEventConstants.ENCOUNTER_TIMELINE_INVALID_EVENT: number = 0 @EncounterTimelineConstants
 EncounterTimelineEventConstants.ENCOUNTER_TIMELINE_RESERVED_EVENT_COUNT: number = 40 @EncounterTimelineConstants
