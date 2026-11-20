@@ -8,7 +8,7 @@ Agent guidance is in [AGENT.md](AGENT.md) (and [CLAUDE.md](CLAUDE.md), which poi
 
 | Flavour | Client product | Game version (build) | Folder | Last updated |
 | --- | --- | --- | --- | --- |
-| Forever | `wowf` | 1.60.1.70959 | [`Forever/`](Forever/BlizzardInterfaceCode/Interface/AddOns) | 2026-11-18 |
+| Forever | `wowf` | 1.60.1.71037 | [`Forever/`](Forever/BlizzardInterfaceCode/Interface/AddOns) | 2026-11-20 |
 
 Versions are read from the `Version` column of the client's `.build.info` file. The exported code does not contain a build number.
 
@@ -40,6 +40,7 @@ Newest first. Every refresh adds an entry here.
 
 | Date | Flavour | Game version (build) | Notes |
 | --- | --- | --- | --- |
+| 2026-11-20 | Forever | 1.60.1.71037 | Refreshed the client export and rebuilt the compact index. |
 | 2026-11-18 | Forever | 1.60.1.70959 | Re-export of Forever tree from the client `.build.info` (`wowf` 1.60.1.70959); compact index rebuilt (`index/`). |
 | 2026-11-14 | Forever | 1.60.1.70938 | Re-export of Forever tree; compact index rebuilt (`index/`). |
 | 2026-10-28 | Forever | 1.60.1.70658 | Added compact API index (`index/`) and builder script (`tools/build_index.py`); game data unchanged |

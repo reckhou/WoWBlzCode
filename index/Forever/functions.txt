@@ -492,6 +492,7 @@ C_BattleNet.InviteFriend(gameAccountID: number) [SecretArguments=AllowedWhenUnta
 C_BattleNet.IsBattleNetFriendsListEnabled() -> isBattleNetFriendsListEnabled: bool @BattleNet
 C_BattleNet.IsBattleNetFriendsListSupported() -> isBattleNetFriendsListSupported: bool @BattleNet
 C_BattleNet.IsFriendTagSupportedForCurrentGameType(friendTag: BattleNetFriendTag) -> isFriendTagSupportedForCurrentGameType: bool [SecretArguments=AllowedWhenUntainted] @BattleNet
+C_BattleNet.IsGameAccountOnSameRealm(id: number) -> isOnSameRealm: bool [SecretArguments=AllowedWhenUntainted] @BattleNet
 C_BattleNet.SearchFriends(searchInfo: AuroraFriendsSearchInfo) -> friendsData: table<luaIndex> [HasRestrictions, SecretArguments=AllowedWhenUntainted] @BattleNet
 C_BattleNet.SendGameData(gameAccountID: number, prefix: stringView, data: stringView) -> result: SendAddonMessageResult [SecretArguments=AllowedWhenUntainted] @BattleNet
 C_BattleNet.SendTitleFriendInviteByName(name: cstring) [HasRestrictions, SecretArguments=AllowedWhenUntainted] @BattleNet
