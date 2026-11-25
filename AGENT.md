@@ -37,9 +37,9 @@ The tree is raw output of the client's `ExportInterfaceFiles code` console comma
 ## Refreshing the dump
 
 1. Install or update the client, then launch it with `-console` and, at the login screen, run `ExportInterfaceFiles code` in the real console (it does not work via `/console` or when in-world, per the wiki above).
-2. Replace the tree (`Forever/BlizzardInterfaceCode`, product `wowf`) with the new export.
+2. When the user notes that the code has been updated, check `e:\World of Warcraft\_forever_\BlizzardInterfaceCode` for the new export and replace the tree (`Forever/BlizzardInterfaceCode`, product `wowf`) with it.
 3. Rebuild the index: `python -I tools/build_index.py` (the script prints record counts and must report 0 failures; `-I` is used because the inputs are untrusted data).
-4. Read the exact build from `<WoW install>/.build.info` (the `Version` column, row for product `wowf`). The code itself does not contain a build number.
+4. Read the exact build from `e:\World of Warcraft\.build.info` (the `Version` column, row for product `wowf`). The code itself does not contain a build number.
 5. Add a new entry at the top of the update log in `README.md` with the date, flavour and build number, and update the "Current versions" table there.
 6. Commit and push. Commit messages should name the flavour and build, for example `Forever 1.60.1.70959 export`.
 

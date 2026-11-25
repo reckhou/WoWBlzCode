@@ -108,7 +108,7 @@ function SmallCatalogShopSubscriptionCardMixin:OnLoad()
 	SmallCatalogShopProductCardMixin.OnLoad(self);
 end
 
-local function SubTimeAndGameTimeCardLayout(card)
+local function SubTimeAndGameTimeCardLayout(card, useWideCardSettings)
 	local container = card.ForegroundContainer;
 	local displayInfo = C_CatalogShop.GetCatalogShopProductDisplayInfo(card.productInfo.catalogShopProductID);
 
@@ -122,10 +122,12 @@ local function SubTimeAndGameTimeCardLayout(card)
 	container.RectIcon:SetPoint("CENTER", 0, 40);
 	container.RectIcon:SetSize(atlasWidth, atlasHeight);
 
-	local timeTexture = CatalogShopUtil.GetTimeTexture(card.productInfo, card.productInfo.cardDisplayData.productType);
-	if timeTexture then
-		container.RectIcon:Show();
-		container.RectIcon:SetAtlas(timeTexture);
+	if card.productInfo.wideCardBGOverrideProductURL == nil or not useWideCardSettings then
+		local timeTexture = CatalogShopUtil.GetTimeTexture(card.productInfo, card.productInfo.cardDisplayData.productType);
+		if timeTexture then
+			container.RectIcon:Show();
+			container.RectIcon:SetAtlas(timeTexture);
+		end
 	else
 		container.RectIcon:Hide();
 	end
@@ -514,7 +516,7 @@ end
 function WideSubscriptionCatalogShopCardMixin:Layout()
 	WideCatalogShopProductCardMixin.Layout(self);
 	self:UpdateTimeRemaining();
-	SubTimeAndGameTimeCardLayout(self);
+	SubTimeAndGameTimeCardLayout(self, self.useWideCardSettings);
 end
 
 --------------------------------------------------
@@ -527,7 +529,7 @@ end
 function WideGameTimeCatalogShopCardMixin:Layout()
 	WideCatalogShopProductCardMixin.Layout(self);
 	self:UpdateTimeRemaining();
-	SubTimeAndGameTimeCardLayout(self);
+	SubTimeAndGameTimeCardLayout(self, self.useWideCardSettings);
 end
 
 --------------------------------------------------
